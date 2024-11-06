@@ -6,7 +6,7 @@ class style
     private string $html;
     static array $vars;
     function __construct($style = null) {
-        if (!self::$vars) {
+        if (!isset(self::$vars)) {
             require_once _STYLE_.'/variables.php';
             /** @var array $var_array */
             self::$vars = $var_array;
