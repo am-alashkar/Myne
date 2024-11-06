@@ -36,16 +36,14 @@ $error['details'] = "Request Forbidden.";
  * other folders are transferred to variables
  * @TODO : make even the first folder in URL a variable connected to a file without using the same name.
  */
-$tmp = explode('/',$_SERVER['REQUEST_URI']);
-$request = null;
-foreach ($tmp as $item) if ($item) $request[] = $item;
-$home = explode('/',_DIR_FROM_ROOT_);
-$url = null;
-for ($i=count($home);$i<count($request);$i++)
-{
-    $url[] = $request[$i];
-}
+$uri = str_replace(_DIR_FROM_ROOT_,'', $_SERVER['REQUEST_URI'].'');
+$urlx = explode('/',$uri.'');
+
 unset($tmp);
+$url = [];
+foreach ($urlx as $key => $value) {
+    if ($value) $url[] = $value;
+}
 if ($url)
 {
     $item = trim(str_replace('%20','_',$url[0].''));
@@ -78,6 +76,7 @@ if ($url)
 {
     $tmp[] = 'main';
 }
+
 $_GET['job'] = $tmp[0];
 $_GET['all'] = $tmp;
 

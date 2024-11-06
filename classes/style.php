@@ -275,6 +275,7 @@ $("html, body").animate({scrollTop: document.body.scrollHeight}, "slow");
      */
     static function msgbox($msg, $type = 'success', $fullscreen = false) {
         $main = new style('msgbox');
+        //dd($main);
         if ($fullscreen) $html = $main->get_part(1);
         else $html = $main->get_part(2);
         $html->str_replace('<!-- CONTENTS -->',(string) $msg);

@@ -6,7 +6,7 @@ class config
     use DynamicProperties;
     static $get;
     public $login_by;
-    public $home_link,$storedate,$storetime,$storedatetime;
+    public $home_link,$storedate,$storetime,$storedatetime,$assets_link;
     private $ok;
     function __construct()
     {
@@ -21,11 +21,12 @@ class config
         foreach ($settings as $value) {
             $this->{$value['var_name']} = $value['var_value'];
         }
-        $this->home_link = _HOME_;
+        $this->home_link = _HOME_; // This is with a slash (/)
+        $this->assets_link = _HOME_.'assets'; // no slash (/) please 
         $this->storedatetime = 'Y-m-d H:i:s';
         $this->storedate = 'Y-m-d';
         $this->storetime = 'H:i:s';
-        $this->login_by = 'login'; // email
+        $this->login_by = 'email'; // email , login , or the name of the column in the members table
         self::$get = $this;
     }
     public function update($key,$value) {
