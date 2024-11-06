@@ -155,4 +155,4 @@ if ($_GET['job'] != 'ajax' || $_POST['todo'] != 'upload') {
 unset($_REQUEST);
 unset($_SERVER);
 unset($_ENV);
-unset($GLOBALS); // this line may produce an error on some configuration .. comment it or change server settings
+// unset($GLOBALS); // this line may produce an error on some configuration .. comment it or change server settings
