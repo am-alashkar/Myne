@@ -3,8 +3,8 @@
 
 class style
 {
-    private $html;
-    static $vars;
+    private string $html;
+    static array $vars;
     function __construct($style = null) {
         if (!self::$vars) {
             require_once _STYLE_.'/variables.php';
@@ -12,7 +12,7 @@ class style
             self::$vars = $var_array;
         }
         if ($style) {
-            $this->html = file_get_contents(_STYLE_.'/'.$style.'.stl');
+            $this->html = file_get_contents(_STYLE_.'/'.$style.'.htm');
         } else {
             $this->html = '';
         }
@@ -31,7 +31,8 @@ class style
         return $this;
     }
 
-    /** Same as explode function but if you directly explode the object it will finish() the html before.<br>
+    /**
+     * Same as explode function but if you directly explode the object it will finish() the html before.
      * this method will not finish() it.
      * @param string $delimiter
      * @return false|string[]

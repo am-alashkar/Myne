@@ -7,10 +7,10 @@ class job
     public $job;
     function __construct()
     {
-        self::$header = new style('header');
-        self::$top  = new style('top');
-        self::$bottom = new style('bottom');
-        self::$footer = new style('footer');
+        self::$header = new style('_header');
+        self::$top  = new style('_top');
+        self::$bottom = new style('_bottom');
+        self::$footer = new style('_footer');
         self::$body = new style();
         $this->job = data::$get->job;
         if (config::$get->force_login && member::$current->id < 1) {
