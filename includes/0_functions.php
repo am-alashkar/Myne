@@ -27,8 +27,8 @@ function dd($v = null) {
 
 /** print and redirect ... to download a file , the id is db related . */
 function download($id) {
-    print '<hr>'.'سيبدأ تحميل الملف خلال ثواني <br> إذا لم يبدأ <a href="'.config::$get->home_link.'download/'.$id.'/">اضغط هنا</a>';
-    redirect(true,'','download/'.$id.'/',1,100,1,1);
+    print '<hr>'.'File download will start shortly <br> If not <a href="'.config::$get->home_link.'download/'.$id.'/">Click here</a>';
+    redirect(true,'','download/'.$id.'/',1,100,true,true);
 }
 
 /** simplified function to redirect the browser with a message . this uses javascript.
@@ -136,6 +136,7 @@ setTimeout(function() {
 </script>';
     if (!$print) return $scr;
     print $scr;
+    return '';
 }
 
 /** this function marks active a link in the navigation panel

@@ -4,13 +4,14 @@
 class lang
 {
     /**
-     * @var lang_ar $lang_engine;
+     * @var lang_en $lang_engine;
+     * used as a referance for the IDE , however this could be lang_ar , lang_en , lang_de etc ...
+     * 
      */
     private $lang_engine;
-    static $lang;
+    static lang $lang;
     function __construct($lang = null)
     {
-
         $file = './languages/lang_'.$lang.'.php';
         if (!file_exists($file)) {
             if (member::$current->lang_name){
@@ -33,7 +34,7 @@ class lang
         self::$lang = $this;
     }
     static function localize($txt , $delete_unknown = false,$unknown_show_text = true) {
-        if (!self::$lang) new lang();
+        if (!isset(self::$lang)) new lang();
         return self::$lang->localizer($txt , $delete_unknown,$unknown_show_text);
     }
     public function localizer($txt,$delete_unknown = false,$unknown_show_text = true) {
@@ -66,6 +67,5 @@ class lang
     }
     public function get($key) {
         return $this->lang_engine->get($key);
-
     }
 }

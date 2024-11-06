@@ -1,5 +1,5 @@
 <?php
-$db_database = 'mts';
+$db_database = 'crm_nse';
 $db_user = 'root';
 $db_host = 'localhost';
 $db_pass = '';

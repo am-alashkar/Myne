@@ -3,6 +3,7 @@
 
 class config
 {
+    use DynamicProperties;
     static $get;
     public $login_by;
     public $home_link,$storedate,$storetime,$storedatetime;

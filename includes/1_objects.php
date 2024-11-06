@@ -23,8 +23,9 @@ function obj_nav_links(){
 /** user info  */
 function obj_user_info() {
     //if (member::$current->id)
+    // $html = member::$current->name .'<input type="hidden" id="user_id" value="'.+member::$current->id.'">';
+    /** BUG: in some browsers a hidden input was cashed and caused an error when switching accounts on the same browser  so this changed to a button and hidden by style*/
     $html = member::$current->name .'<input type="button" id="user_id" style="display:none" value="'.+member::$current->id.'">';
-    /** BUG: in some browsers a hidden input was cashed and caused an error when using multiple accounts on the same browser */
     return $html;
     //return '';
 }

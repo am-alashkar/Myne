@@ -15,3 +15,4 @@ spl_autoload_register(
 
 /** all files in includes will be included any way. */
 foreach (glob('./includes/*.php') as $item) require $item;
+
