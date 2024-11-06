@@ -261,7 +261,7 @@ $("html, body").animate({scrollTop: document.body.scrollHeight}, "slow");
         return $ht;
     }
     public function add($style,$before = false) {
-        $html = file_get_contents(_STYLE_.'/'.$style.'.stl');
+        $html = file_get_contents(_STYLE_.'/'.$style.'.htm');
         if ($before) $this->html = $html . $this->html;
         else $this->html .= $html;
         return $this;
@@ -300,7 +300,7 @@ $("html, body").animate({scrollTop: document.body.scrollHeight}, "slow");
         $title = lang::localize($title,true);
         $title = str_replace("\n",'',(string) $title);
         $btn = lang::localize('{{ok}}',false,true);
-        $gritter = file_get_contents('./'._STYLE_.'/gritter.stl');
+        $gritter = file_get_contents('./'._STYLE_.'/_gritter.htm');
         $gritter = explode('<!-- SEP -->',$gritter);
         $html = $gritter['0'];
         $html = str_replace('<!-- ICON -->',$icon,$html);
@@ -613,7 +613,7 @@ $("#'.$input_id.'").addClass("'.$stat.'");
      */
     public function create_modal($title = '') {
         $rid = rand(1,1000).time();
-        $modal_ht = file_get_contents('./'._STYLE_.'/modal.stl');
+        $modal_ht = file_get_contents('./'._STYLE_.'/_modal.htm');
         $this->html = str_replace('<!-- CONTENTS -->',$this->html,$modal_ht);
         $this->html = str_replace('<!-- TITLE -->',$title,$this->html);
         $this->html = str_replace('<!-- RID -->',$rid,$this->html);
