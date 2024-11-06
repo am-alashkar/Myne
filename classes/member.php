@@ -35,7 +35,7 @@ class member
     function __construct()
     {
         if(data::$get->job == 'api') {
-            return null;
+            return;
         }
         require 'session.php';
         if ($_SESSION['sess_sid']) {
@@ -69,7 +69,7 @@ class member
         self::$current = $this;
     }
     public function set_last_seen() {
-        $up['last_active'] = date(config::$get->storedatetime);
+        $up['last_active'] = date(config::$get->storedatetime.'');
         if ($this->session_id) db::$db->update('sessions',$up,'id','=',$this->session_id);
         // NULL false 0 ""
 
@@ -91,7 +91,7 @@ class member
     private function create_new_session() {
         $this->sid = sha1(rand(1,9999).time());
         $in['sid'] = $this->sid;
-        $in['last_active'] = date(config::$get->storedatetime);
+        $in['last_active'] = date(config::$get->storedatetime.'');
         $this->session_id = db::$db->insert('sessions',$in);
         $_SESSION['sess_sid'] = $this->sid;
         $_SESSION['user_id'] = 0;
@@ -281,7 +281,7 @@ class member
         if (!member::$current->load_login()) return false;
         $up['user_id'] = $id;
         //$in['sid'] = $_SESSION['sess_sid'];
-        $up['last_active'] = date(config::$get->storedatetime);
+        $up['last_active'] = date(config::$get->storedatetime.'');
         db::$db->update('sessions',$up,'id','=',member::$current->session_id);
         //die(db::$db->get_last_error());
         //if () $_SESSION['lang'] =

@@ -1,8 +1,9 @@
 <?php
 
 
-class result implements ArrayAccess
+class result implements ArrayAccess , IteratorAggregate
 {
+    use DynamicProperties;
     public function count() : int {
         return count(get_object_vars($this));
     }
