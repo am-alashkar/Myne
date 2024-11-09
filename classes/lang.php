@@ -47,8 +47,8 @@ class lang
                     $txt = str_replace($find,$this->lang_engine->get($value),$txt);
                 } else if ($delete_unknown) {
                     $txt = str_replace($find,'',$txt);
-                } else if ($unknown_show_text) {
-                    $txt = str_replace($find,$value,$txt);
+                } else  {
+                    $txt = str_replace($find,ucwords(str_replace('_',' ',$value).'').'' ,$txt);
                 }
             }
         }
