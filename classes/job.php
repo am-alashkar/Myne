@@ -35,6 +35,11 @@ class job
         self::$bottom = new style();
         self::$footer = new style();
     }
+    static function only_headers() {
+        // self::$header = new style();
+        self::$top = new style();
+        self::$bottom = new style();
+    }
     static function out() {
         print job::$header.job::$top.job::$body.job::$bottom.job::$footer;
     }
