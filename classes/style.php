@@ -3,7 +3,7 @@
 
 class style
 {
-    private string $html;
+    private ?string $html;
     static array $vars;
     function __construct($style = null) {
         if (!isset(self::$vars)) {
@@ -27,7 +27,7 @@ class style
     }
     public function part($id = 0) {
         if ($id < 1) return $this;
-        $this->html = explode('<!-- SEP -->',$this->html)[$id-1];
+        $this->html = explode('<!-- SEP -->',$this->html.'')[$id-1];
         return $this;
     }
 
@@ -38,13 +38,13 @@ class style
      * @return false|string[]
      */
     public function split($delimiter) {
-        return explode($delimiter,$this->html);
+        return explode($delimiter.'',$this->html.'');
 
     }
     public function get_part($id = 0) {
         $result = new style();
         if ($id < 1) return $result;
-        $result->add_html($this->html);
+        $result->add_html($this->html ?? '');
         $result->add_html(explode('<!-- SEP -->',$this->html)[$id-1],0,1);
         return $result;
     }
@@ -193,7 +193,7 @@ class style
             foreach ($array as $item=>$value){
                 $find = '<!-- VAR_'.$value.' -->';
                 if (strstr($value,'|')) {
-                    $tmp = explode('|',$value);
+                    $tmp = explode('|',$value.'');
                     $value = $tmp['0'];
                     try {
                         $test = new DateTime(data::$get->$value.'');
@@ -209,7 +209,7 @@ class style
                     }
 
                 } elseif (strstr($value,'>')) {
-                    $tmp = explode('>',$value);
+                    $tmp = explode('>',$value.'');
                     $replace = data::$get->{$tmp[0]}[$tmp[1]];
                 } elseif (isset(data::$get->$value)) {
                     $replace = data::$get->$value;
@@ -245,7 +245,7 @@ class style
                 $txt = str_replace($find,(string) $replace,$txt);
             }
         }
-        $txt = lang::localize($txt,true);
+        $txt = lang::localize($txt);
         $this->html = $txt;
     }
     static function scroll($top = true) {
@@ -282,7 +282,7 @@ $("html, body").animate({scrollTop: document.body.scrollHeight}, "slow");
         $html->str_replace('<!-- TYPE -->',(string) $type);
         if ($fullscreen){
             job::clear_html();
-            $html->add('header',true)->add('footer');
+            $html->add('_header',true)->add('_footer');
         }
         return $html;
     }
@@ -296,13 +296,13 @@ $("html, body").animate({scrollTop: document.body.scrollHeight}, "slow");
                             $remove_modal = true) {
         if (!$style) $style = 'center';
         if (!$icon) $icon = 'success';
-        $msg = lang::localize($msg,true);
+        $msg = lang::localize($msg);
         $msg = str_replace("\n",(string) '',(string) $msg);
-        $title = lang::localize($title,true);
+        $title = lang::localize($title);
         $title = str_replace("\n",'',(string) $title);
-        $btn = lang::localize('{{ok}}',false,true);
+        $btn = lang::localize('{{ok}}');
         $gritter = file_get_contents('./'._STYLE_.'/_gritter.htm');
-        $gritter = explode('<!-- SEP -->',$gritter);
+        $gritter = explode('<!-- SEP -->',$gritter.'');
         $html = $gritter['0'];
         $html = str_replace('<!-- ICON -->',$icon,$html);
         $html = str_replace('<!-- BTN -->',$btn,$html);
@@ -489,7 +489,7 @@ $("#'.$input_id.'").addClass("'.$stat.'");
                 foreach ($array as $item=>$value){
                     $find = '<!-- INFO_'.$value.' -->';
                     if (strstr($value,'>')) {
-                        $tmp = explode('>',$value);
+                        $tmp = explode('>',$value.'');
                         $replace = $data[$tmp[0]][$tmp[1]];
                         $sht = str_replace($find,(string) $replace,$sht.'');
                     }
@@ -597,7 +597,7 @@ $("#'.$input_id.'").addClass("'.$stat.'");
      */
     static function check_box($id = '', $text='', $form_name = 'default_form', $checked = false)
     {
-        $main = new style('check_box');
+        $main = new style('_check_box');
         if (!$id) $id = 'check_box_'.rand(1,9999);
         if (!$text) $text = $id;
         $info = ['id'=>$id,'name'=>$text,'form_name'=>$form_name,'checked'=>$checked? 'checked' : ''];
