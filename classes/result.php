@@ -5,21 +5,21 @@ class result implements ArrayAccess , IteratorAggregate
 {
     use DynamicProperties;
     public function count() : int {
-        return count(get_object_vars($this));
+        return count($this->dynamicProperties);
     }
     public function is_empty() : bool {
         return $this->count() == 0;
     }
     public function join($data = null,$overwrite = true) {
         if ($data) foreach ($data as $key=>$var) {
-            if (!isset($this->$key) || (isset($this->$key) && $overwrite) ) {
-                $this->$key = $var;
+            if (!isset($this->dynamicProperties[$key]) || (isset($this->dynamicProperties[$key]) && $overwrite) ) {
+                $this->dynamicProperties[$key] = $var;
             }
         }
         return $this;
     }
     public function add($key ,$data = null) {
-        $this->$key = $data;
+        $this->dynamicProperties[$key] = $data;
         return $this;
     }
 //    public function to_array() {
@@ -33,19 +33,14 @@ class result implements ArrayAccess , IteratorAggregate
         return $this->count().'';
     }
     function first() {
-        foreach ($this as $item) return $item;
+        foreach ($this->dynamicProperties as $item) return $item;
     }
     function last() {
         $item = null;
-        foreach ($this as $item) ;
+        foreach ($this->dynamicProperties as $item) ;
         return $item;
     }
-    function next($item = null) {
-        foreach ($this as $key=>$it) {
-            if ($item) yield $this->{$key}[$item];
-            else yield $key=>$it;
-        }
-    }
+   
 
     public function offsetExists( $offset) : bool
     {
@@ -70,5 +65,13 @@ class result implements ArrayAccess , IteratorAggregate
     public function offsetUnset($offset) : void
     {
         unset($this->$offset);
+    }
+    public function implode(string $glue = ' ') : string
+    {
+        $array = [];
+        foreach ($this as $key=>$it) {
+            $array[] = $it;
+        }
+        return implode($glue, $array);
     }
 }
