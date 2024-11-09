@@ -26,4 +26,13 @@ trait DynamicProperties {
     public function getIterator(): Traversable {
         return new ArrayIterator($this->dynamicProperties);
     }
+    public function set($key , $value = null) {
+        $this->dynamicProperties[$key] = $value;
+    }
+    public function get($key) { 
+        if (isset($this->dynamicProperties[$key])) {
+            return $this->dynamicProperties[$key];
+        }
+        return null;
+    }
 }
